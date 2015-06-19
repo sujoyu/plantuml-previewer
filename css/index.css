@@ -1,0 +1,15 @@
+#editor {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* height: 50em; */
+    width: 600px;
+}
+
+#canvas {
+    margin-left: 610px;
+}
+
+
