@@ -18,7 +18,12 @@
   <body>
 
     <form id="previewForm">
-      <button id="prevoew" type="submit">preview</button>
+      <button id="preview" type="submit">preview &amp; save (Shift+Enter)</button>
+      <select id="mode">
+	<option value=""></option>
+	<option value="ace/keyboard/emacs">Emacs</option>
+	<option value="ace/keyboard/vim">Vim</option>
+      </select>
     <pre id="editor">
 Bob->Alice : foo
 Bob<--Alice : foo
