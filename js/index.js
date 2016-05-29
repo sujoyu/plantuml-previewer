@@ -1,13 +1,15 @@
 $(function() {
+  $('select').material_select();
+
   var $mode = $("#mode");
-  
+
   var ls = window.localStorage;
 
   var uml = ls && ls.getItem("uml");
   if (uml) {
     $("#editor").html(uml);
   }
-  
+
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/monokai");
   editor.getSession().setMode("ace/mode/diagram");
@@ -20,7 +22,7 @@ $(function() {
     var uml = editor.getValue();
 
     ls && ls.setItem("uml", uml);
-    
+
     $("#canvas").attr({
       uml: uml,
       src: null
@@ -29,13 +31,13 @@ $(function() {
     plantumlPreviewer.initialize();
     plantuml_runonce();
     plantumlPreviewer.finalize();
-    
+
     return false;
   });
 
   $mode.change(function() {
     var mode = $(this).val();
-    
+
     addSubmitKey();
 
     ls && ls.setItem("mode", mode);
@@ -44,8 +46,7 @@ $(function() {
 
   var mode = ls && ls.getItem("mode");
   if (mode) {
-    $mode.val(mode);
-    $mode.change();
+    $mode.val(mode).change();
   }
 
   function addSubmitKey() {
@@ -60,6 +61,6 @@ $(function() {
   }
 
   addSubmitKey();
-  
+
 });
 

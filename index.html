@@ -1,38 +1,88 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery_plantuml/rawdeflate.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/initialize.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/lib/jquery_plantuml/jquery_plantuml.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/finalize.js" charset="utf-8"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
     <script type="text/javascript" src="js/lib/ace/src-min/mode-diagram.js" charset="utf-8"></script>
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
     <script type="text/javascript" src="js/index.js" charset="utf-8"></script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
   <body>
 
-    <form id="previewForm">
-      <button id="preview" type="submit">preview &amp; save (Shift+Enter)</button>
-      <select id="mode">
-	<option value=""></option>
-	<option value="ace/keyboard/emacs">Emacs</option>
-	<option value="ace/keyboard/vim">Vim</option>
-      </select>
-    <pre id="editor">
+    <nav>
+      <div class="nav-wrapper">
+      <div class="container">
+        <a href="#" class="brand-logo">Plant UML Previewer</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+    <form id="previewForm" class="row">
+      <button id="preview" class="col s6 btn" type="submit">preview &amp; save (Shift+Enter)</button>
+      <div class="input-field col s6">
+        <select id="mode">
+          <option value="" disabled selected>Default</option>
+          <option value="ace/keyboard/emacs">Emacs</option>
+          <option value="ace/keyboard/vim">Vim</option>
+        </select>
+        <label>Choose Key Binding</label>
+      </div>
+      </form>
+      <div class="divider"></div>
+      <section id="editorWrapper">
+    <pre id="editor" class="z-depth-2">
 Bob->Alice : foo
 Bob<--Alice : foo
 </pre>
-    </form>
-    
+    </section>
+    <section id="canvasSection" class="z-depth-2">
     <img id="canvas" uml="
-	      Bob->Alice : foo
-	      Bob<--Alice : foo
-	      ">
+        Bob->Alice : foo
+        Bob<--Alice : foo
+        ">
+    </section>
+    </div>
 
+    <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">About</h5>
+                <p class="grey-text text-lighten-4">
+                This application is simple editor for Plant UML with Syntax Highliting and preview.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Contact</h5>
+                <ul>
+                  <li><a href="https://twitter.com/intent/tweet?screen_name=sutsurumu" class="twitter-mention-button" data-related="sutsurumu" data-dnt="true">Tweet to @sutsurumu</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+                  <li>
+                    <!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/sujoyu/plantuml-previewer" data-style="mega" data-count-href="/sujoyu/plantuml-previewer/stargazers" data-count-api="/repos/sujoyu/plantuml-previewer#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star sujoyu/plantuml-previewer on GitHub">Star</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 sujoyu
+            </div>
+          </div>
+        </footer>
+
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 
-</html> 
+</html>
