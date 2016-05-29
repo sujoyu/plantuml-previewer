@@ -27,3 +27,16 @@ var plantumlPreviewer = {
 }
 
 plantumlPreviewer.initialize();
+
+$(function() {
+  var ls = window.localStorage;
+
+  var uml = ls && ls.getItem("uml");
+  if (uml) {
+    $("#editor").html(uml);
+    $("#canvas").attr({
+        uml: uml,
+        src: null
+    });
+  }
+})

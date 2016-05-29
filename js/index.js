@@ -5,10 +5,14 @@ $(function() {
 
   var ls = window.localStorage;
 
-  var uml = ls && ls.getItem("uml");
-  if (uml) {
-    $("#editor").html(uml);
+  if (!ls) {
+    console.error("this application needs local storage.");
   }
+
+  var uml = ls && ls.getItem("uml");
+  // if (uml) {
+  //   $("#editor").html(uml);
+  // }
 
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/monokai");
@@ -20,6 +24,7 @@ $(function() {
 
   $form.submit(function() {
     var uml = editor.getValue();
+    // console.log(uml);
 
     ls && ls.setItem("uml", uml);
 
@@ -33,7 +38,7 @@ $(function() {
     plantumlPreviewer.finalize();
 
     return false;
-  });
+  }).submit();
 
   $mode.change(function() {
     var mode = $(this).val();
