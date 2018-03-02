@@ -533,7 +533,7 @@ function zip_fill_window() {
 //	System.arraycopy(window, WSIZE, window, 0, WSIZE);
 	for(n = 0; n < zip_WSIZE; n++)
 	    zip_window[n] = zip_window[n + zip_WSIZE];
-      
+
 	zip_match_start -= zip_WSIZE;
 	zip_strstart    -= zip_WSIZE; /* we now have strstart >= MAX_DIST: */
 	zip_block_start -= zip_WSIZE;
@@ -817,7 +817,7 @@ function zip_qcopy(buff, off, buff_size) {
 //      System.arraycopy(qhead.ptr, qhead.off, buff, off + n, i);
 	for(j = 0; j < i; j++)
 	    buff[off + n + j] = zip_qhead.ptr[zip_qhead.off + j];
-	
+
 	zip_qhead.off += i;
 	zip_qhead.len -= i;
 	n += i;
@@ -1668,12 +1668,12 @@ return function deflate(str, level) {
 })();
 
 onmessage = function worker(m) {
-  postMessage(deflate(m.data, 9));
+  postMessage(deflate(m.data, 9), "*");
 };
 
 onconnect = function sharedWorker(e) {
   var port = e.ports[0];
   port.onmessage = function(m) {
-    port.postMessage(deflate(m.data, 9));
+    port.postMessage(deflate(m.data, 9), "*");
   };
 };

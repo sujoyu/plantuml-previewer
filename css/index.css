@@ -12,12 +12,19 @@
     width: 600px;
 }
 
+#canvasWrapper {
+  position: relative;
+  height: 50em;
+}
+
 #canvasSection {
-	margin-top: 10px;
-	margin-left: 610px;
-	overflow: auto;
+  position: absolute;
+  top: 10px;
+	left: 610px;
+	overflow: visible;
 	height: 50rem;
 	border: 1px solid #eee;
+  background-color: #fff;
 }
 
 #canvas {
