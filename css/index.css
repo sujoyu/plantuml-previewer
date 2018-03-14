@@ -1,5 +1,6 @@
 #editorWrapper {
-	position: relative;
+  position: relative;
+  width: 600px;
 }
 
 #editor {
@@ -13,24 +14,20 @@
 }
 
 #canvasWrapper {
+  display: inline-block;
   position: relative;
+  top: 10px;
+  left: 610px;
   height: 50em;
-  z-index: -100;
 }
 
 #canvasSection {
   position: absolute;
-  top: 10px;
-	left: 610px;
-	overflow: visible;
-	height: 50rem;
+  max-height: 50em;
+  overflow-x: visible;
+  overflow-y: auto;
 	border: 1px solid #eee;
   background-color: #fff;
-}
-
-#canvas {
-
-
 }
 
 #previewForm {
