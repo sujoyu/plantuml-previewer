@@ -10,11 +10,9 @@ $(function() {
   }
 
   var uml = ls && ls.getItem("uml");
-  // if (uml) {
-  //   $("#editor").html(uml);
-  // }
 
   var editor = ace.edit("editor");
+  editor.session.setValue(uml ? uml : "");
   editor.setTheme("ace/theme/monokai");
   editor.getSession().setMode("ace/mode/diagram");
   editor.setAutoScrollEditorIntoView(true);

@@ -33,7 +33,6 @@ $(function() {
 
   var uml = ls && ls.getItem("uml");
   if (uml) {
-    $("#editor").html(uml);
     $("#canvas").attr({
         uml: uml,
         src: null

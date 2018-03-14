@@ -15,6 +15,7 @@
 #canvasWrapper {
   position: relative;
   height: 50em;
+  z-index: -100;
 }
 
 #canvasSection {
