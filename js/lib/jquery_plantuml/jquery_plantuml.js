@@ -1,6 +1,8 @@
 $(document).ready(function(){
-   plantuml_runonce();
+  //  plantuml_runonce();
 });
+
+rawdeflatePath = '/js/lib/jquery_plantuml/rawdeflate.js'
 
 <!--  taken from https://github.com/johan/js-deflate -->
 
@@ -53,12 +55,12 @@ if (b == 1) {
 return '?';
 }
 
-var deflater = window.SharedWorker && new SharedWorker('rawdeflate.js');
+var deflater = window.SharedWorker && new SharedWorker(rawdeflatePath);
 if (deflater) {
   deflater.port.addEventListener('message', done_deflating, false);
   deflater.port.start();
 } else if (window.Worker) {
-  deflater = new Worker('rawdeflate.js');
+  deflater = new Worker(rawdeflatePath);
   deflater.onmessage = done_deflating;
 }
 

@@ -11,6 +11,13 @@ $(function() {
 
   var uml = ls && ls.getItem("uml");
 
+  if (uml) {
+    $("#canvas").attr({
+        uml: uml,
+        src: null
+    });
+  }
+
   var editor = ace.edit("editor");
   editor.session.setValue(uml ? uml : "");
   editor.setTheme("ace/theme/monokai");
@@ -18,8 +25,6 @@ $(function() {
   editor.setAutoScrollEditorIntoView(true);
 
   var $form = $("#previewForm");
-
-  plantumlPreviewer.finalize();
 
   $form.submit(function() {
     var uml = editor.getValue();
@@ -31,9 +36,7 @@ $(function() {
       src: null
     });
 
-    plantumlPreviewer.initialize();
     plantuml_runonce();
-    plantumlPreviewer.finalize();
 
     return false;
   }).submit();
