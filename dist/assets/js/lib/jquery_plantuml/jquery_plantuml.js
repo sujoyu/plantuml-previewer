@@ -3,6 +3,7 @@ $(document).ready(function(){
 });
 
 rawdeflatePath = '/plantuml-previewer/js/lib/jquery_plantuml/rawdeflate.js'
+//'/assets/js/lib/jquery_plantuml/rawdeflate.js'
 
 <!--  taken from https://github.com/johan/js-deflate -->
 

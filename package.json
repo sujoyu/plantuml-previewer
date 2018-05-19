@@ -1,0 +1,47 @@
+{
+  "name": "plantuml-previewer",
+  "version": "1.0.0",
+  "description": "Online Plant UML editor with syntax highlighting and preview.",
+  "main": "index.js",
+  "scripts": {
+    "build": "env NODE_ENV=production rollup -c",
+    "watch": "env NODE_ENV=development rollup -cw",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sujoyu/plantuml-previewer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sujoyu/plantuml-previewer/issues"
+  },
+  "homepage": "https://github.com/sujoyu/plantuml-previewer#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.24.4",
+    "codeflask": "^1.1.0",
+    "rollup": "0.57.1",
+    "rollup-plugin-alias": "^1.4.0",
+    "rollup-plugin-buble": "^0.19.1",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-node-globals": "^1.1.0",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-postcss": "^1.6.1",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-serve": "^0.4.2",
+    "rollup-plugin-uglify": "^3.0.0",
+    "rollup-plugin-vue": "3.0.0",
+    "vue-template-compiler": "^2.5.13",
+    "vuetify": "^1.0.18"
+  },
+  "dependencies": {
+    "materialize-css": "^1.0.0-rc.1",
+    "vue": "^2.5.16"
+  }
+}

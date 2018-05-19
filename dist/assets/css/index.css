@@ -3,7 +3,7 @@
   width: 600px;
 }
 
-#editor {
+#aceEditor, #codeFlaskEditor {
     position: absolute;
     top: 0;
     right: 0;
@@ -11,6 +11,18 @@
     left: 0;
     height: 50rem;
     width: 600px;
+}
+
+#aceEditor code, #codeFlaskEditor code {
+  background-color: transparent;
+  color: #888;
+  box-shadow: none;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+.hidden {
+  display: none;
 }
 
 #canvasWrapper {
