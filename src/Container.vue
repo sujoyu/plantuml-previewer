@@ -116,19 +116,15 @@ export default {
       console.error("this application needs local storage.");
     }
 
-    const uml = this.ls && this.ls.getItem("uml");
+    const uml = this.ls && this.ls.getItem("uml") || `bob -> alice
+bob <-- alice`;
     if (uml) {
       this.$refs.canvas.setAttribute("uml", uml);
       this.$refs.canvas.removeAttribute("src", null);
     }
 
     const editor = this.ls && this.ls.getItem("editor") || 'codeFlask';
-    this.onChangeEditorMode(
-      uml
-        ? uml
-        : `bob -> alice
-bob <-- alice`
-    );
+    this.onChangeEditorMode(uml);
     this.editorMode = editor;
     this.keybindMode = this.ls && this.ls.getItem("mode");
 
