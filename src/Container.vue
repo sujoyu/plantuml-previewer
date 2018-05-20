@@ -2,10 +2,10 @@
   <v-container>
     <form id="previewForm" class="row" @submit.prevent="onSubmit">
       <v-layout row wrap>
-        <v-flex xs4 class="px-3">
+        <v-flex xs12 sm12 md12 lg4 class="px-3">
           <v-btn color="success" large class="mx-auto" type="submit">preview &amp; save (Shift+Enter)</v-btn>
         </v-flex>
-        <v-flex xs4 class="px-3">
+        <v-flex xs12 sm12 md12 lg4 class="px-3">
           <v-select
             :items="editorModes"
             v-model="editorMode"
@@ -13,7 +13,7 @@
             single-line
           ></v-select>
         </v-flex>
-        <v-flex xs4 class="px-3">
+        <v-flex xs12 sm12 md12 lg4 class="px-3">
           <v-select
             :items="keybindModes"
             v-model="keybindMode"
@@ -24,19 +24,23 @@
         </v-flex>
       </v-layout>
     </form>
-      <v-divider></v-divider>
-      <section id="editorWrapper" class="">
-    <pre id="aceEditor" class="elevation-1" ref="aceEditor"></pre>
-    <div id="codeFlaskEditor" class="elevation-1" ref="codeFlaskEditor"></div>
-    </section>
-    <div id="canvasWrapper" class="">
-      <section id="canvasSection" class="elevation-1">
-        <img id="canvas" uml="
-          Bob->Alice : foo
-          Bob<--Alice : foo
-          " ref="canvas">
-      </section>
-    </div>
+    <v-divider></v-divider>
+
+    <v-layout row wrap>
+      <v-flex xs12 sm12 md12 lg6 class="px-3 py-3">
+        <section id="editorWrapper" class="">
+          <pre id="aceEditor" class="elevation-1" ref="aceEditor"></pre>
+          <div id="codeFlaskEditor" class="elevation-1" ref="codeFlaskEditor"></div>
+        </section>
+      </v-flex>
+      <v-flex xs12 sm12 md12 lg6 align-center class="px-3 py-3">
+        <div id="canvasWrapper" class="">
+          <section id="canvasSection" class="elevation-1 text-xs-center" v-dragscroll>
+            <img id="canvas" uml="" ref="canvas">
+          </section>
+        </div>
+      </v-flex>
+    </v-layout>
 
     <v-snackbar
       :timeout="3000"
@@ -82,6 +86,10 @@ export default {
         }
       ],
       keybindMode: "",
+      editorClasses:{
+          codeFlask: CodeFlaskEditor,
+          ace: AceEditor
+      },
       editors: {},
       ls: window.localStorage,
       updatedMessageVisible: false,
@@ -89,7 +97,7 @@ export default {
   },
   computed: {
     currentEditorClass() {
-      return this.editorMode === "ace" ? AceEditor : CodeFlaskEditor;
+      return this.editorClasses[this.editorMode];
     },
     currentEditor() {
       return this.editors[this.editorMode];
@@ -114,13 +122,14 @@ export default {
       this.$refs.canvas.removeAttribute("src", null);
     }
 
+    const editor = this.ls && this.ls.getItem("editor");
     this.onChangeEditorMode(
       uml
         ? uml
         : `bob -> alice
 bob <-- alice`
     );
-    this.editorMode = this.ls && this.ls.getItem("editor");
+    this.editorMode = editor;
     this.keybindMode = this.ls && this.ls.getItem("mode");
 
     plantuml_runonce();
@@ -149,7 +158,7 @@ bob <-- alice`
       this.currentEditor.updateCode(oldCode);
       this.ls && this.ls.setItem("editor", this.editorMode);
 
-      Object.keys(this.editors).forEach(key => {
+      Object.keys(this.editorClasses).forEach(key => {
         const classList = this.$refs[`${key}Editor`].classList;
         if (this.editorMode === key) {
           classList.remove("hidden");
@@ -167,13 +176,56 @@ bob <-- alice`
   }
 };
 </script>
-<style lang="postcss" scoped>
-#aceEditor,
-#codeFlaskEditor {
+<style lang="scss">
+#editorWrapper {
+  position: relative;
+  width: 100%;
+}
+
+#aceEditor, #codeFlaskEditor {
+  height: 50rem;
+  width: 100%;
+
+  &.hidden {
+    height: 0;
+    display: none;
+  }
+  
   code {
-    background-color: #fff;
+    background-color: transparent;
     color: #888;
     box-shadow: none;
+    font-size: 100%;
+    font-weight: normal;
+
+    &:before {
+      letter-spacing: -1ex;
+    }
   }
+}
+
+#canvasWrapper {
+  position: relative;
+  width: 100%;
+  height: 50rem;
+}
+
+#canvasSection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 50rem;
+  width: 100%;
+  overflow: scroll;
+	border: 1px solid #eee;
+  background-color: #fff;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: grab;
+}
+
+.flex-scroll {
+  min-height: min-content;
 }
 </style>

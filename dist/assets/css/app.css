@@ -1,181 +1,43 @@
 
 /*# sourceMappingURL=App.vue.map */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#aceEditor[data-v-2a9e6f50],
-#codeFlaskEditor[data-v-2a9e6f50] {
-  code[data-v-2a9e6f50] {
-    background-color: #fff;
+#editorWrapper {
+  position: relative;
+  width: 100%; }
+
+#aceEditor, #codeFlaskEditor {
+  height: 50rem;
+  width: 100%; }
+  #aceEditor.hidden, #codeFlaskEditor.hidden {
+    height: 0;
+    display: none; }
+  #aceEditor code, #codeFlaskEditor code {
+    background-color: transparent;
     color: #888;
     box-shadow: none;
-  }
-}
+    font-size: 100%;
+    font-weight: normal; }
+    #aceEditor code:before, #codeFlaskEditor code:before {
+      letter-spacing: -1ex; }
+
+#canvasWrapper {
+  position: relative;
+  width: 100%;
+  height: 50rem; }
+
+#canvasSection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 50rem;
+  width: 100%;
+  overflow: scroll;
+  border: 1px solid #eee;
+  background-color: #fff;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: grab; }
+
+.flex-scroll {
+  min-height: min-content; }
 

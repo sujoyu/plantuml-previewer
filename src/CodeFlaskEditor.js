@@ -20,6 +20,7 @@ export default class CodeFlaskEditor {
 
   updateCode(code) {
     this.editor.updateCode(code);
+    this.editor.setLineNumber();
   }
 
   bindSubmitKey() {

@@ -10,6 +10,7 @@ import livereload from 'rollup-plugin-livereload'
 import serve from 'rollup-plugin-serve'
 import replace from 'rollup-plugin-replace'
 import postcss from 'rollup-plugin-postcss'
+import autoprefixer from 'autoprefixer'
 
 let plugins = [
   nodeResolve({
@@ -18,7 +19,9 @@ let plugins = [
     browser: true
   }),
   postcss({
-    plugins: []
+    plugins: [
+      autoprefixer
+    ]
   }),
   alias({
     vue: 'vue/dist/vue.esm.js',
