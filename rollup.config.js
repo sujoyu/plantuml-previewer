@@ -29,7 +29,7 @@ let plugins = [
     resolve: ['.js', '.vue']
   }),
   vue({
-    css: './dist/assets/css/app.css'
+    css: './docs/assets/css/app.css'
   }),
   buble({
     objectAssign: 'Object.assign'
@@ -41,14 +41,10 @@ let plugins = [
 let config = {
   input: './src/main.js',
   output: {
-    file: './dist/assets/js/app.js',
+    file: './docs/assets/js/app.js',
     format: 'umd',
     sourcemap: true
   },
-  // globals: {
-  //   'vue': 'Vue',
-  //   'vue-router': 'VueRouter'
-  // },
   plugins: plugins
 }
 
@@ -69,7 +65,7 @@ if (isDevelopment) {
   config.plugins.push(livereload())
   config.plugins.push(
     serve({
-      contentBase: './dist/',
+      contentBase: './docs/',
       port: 8080,
       open: true
     })
