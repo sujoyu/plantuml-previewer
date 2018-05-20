@@ -122,7 +122,7 @@ export default {
       this.$refs.canvas.removeAttribute("src", null);
     }
 
-    const editor = this.ls && this.ls.getItem("editor");
+    const editor = this.ls && this.ls.getItem("editor") || 'codeFlask';
     this.onChangeEditorMode(
       uml
         ? uml
