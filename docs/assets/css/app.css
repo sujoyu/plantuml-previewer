@@ -30,7 +30,7 @@
   left: 0;
   max-height: 50rem;
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   border: 1px solid #eee;
   background-color: #fff;
   cursor: -webkit-grab;
@@ -38,6 +38,20 @@
   cursor: -o-grab;
   cursor: grab; }
 
-.flex-scroll {
-  min-height: min-content; }
+#history {
+  max-height: 30rem;
+  overflow-y: auto; }
+
+.deletingUml {
+  max-width: 500px;
+  max-height: 50rem;
+  overflow: auto;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: grab; }
+
+.header-icon {
+  margin-top: -3px;
+  margin-right: 4px; }
 

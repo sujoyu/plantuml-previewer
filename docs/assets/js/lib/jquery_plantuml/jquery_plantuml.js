@@ -2,8 +2,8 @@ $(document).ready(function(){
   //  plantuml_runonce();
 });
 
-//rawdeflatePath = '/plantuml-previewer/assets/js/lib/jquery_plantuml/rawdeflate.js'
-rawdeflatePath = '/assets/js/lib/jquery_plantuml/rawdeflate.js'
+rawdeflatePath = '/plantuml-previewer/assets/js/lib/jquery_plantuml/rawdeflate.js'
+//rawdeflatePath = '/assets/js/lib/jquery_plantuml/rawdeflate.js'
 
 <!--  taken from https://github.com/johan/js-deflate -->
 

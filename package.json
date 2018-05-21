@@ -26,6 +26,7 @@
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.24.4",
     "codeflask": "^1.1.0",
+    "moment": "^2.22.1",
     "node-sass": "^4.9.0",
     "rollup": "0.57.1",
     "rollup-plugin-alias": "^1.4.0",

@@ -4,7 +4,7 @@
       <v-layout row wrap>
         <v-flex xs12 sm12 md12 lg4 class="px-3">
           <v-btn color="success" large class="mx-auto" type="submit" :disabled="submitDisabled">
-            preview &amp; save (Shift+Enter)
+            <v-icon class="header-icon">save</v-icon> preview &amp; save (Shift+Enter)
           </v-btn>
         </v-flex>
         <v-flex xs12 sm12 md12 lg4 class="px-3">
@@ -43,26 +43,42 @@
         </div>
       </v-flex>
     </v-layout>
+    <v-divider></v-divider>
 
-    <v-container grid-list-small fluid>
-      <v-layout row wrap>
-        <v-flex
-          v-for="(uml, index) in umls" xs4
-          :key='index'
+    <v-layout>
+    <v-flex xs12 class="px-3 py-3">
+      <v-card class="px-3" id="history">
+        <v-container grid-list-md fluid
+          v-for="(day, index) in dateSplitUmls"
+          :key="index"
         >
-          <v-card flat tile @click.native="onUmlLoad(uml)">
-            <v-card-media
-              :src="uml.src"
-              height="200px"
+          <v-subheader>
+            {{ moment(day[0].date).format('YYYY/MM/DD') }}
+          </v-subheader>
+          <v-layout row wrap>
+            <v-flex
+              v-for="(uml, index) in day" 
+              :key='index'
+              xs6 sm4 md3 lg2
             >
-            </v-card-media>
-            <v-card-text>{{ uml.date }}</v-card-text>
-            <v-card-actions>
-              <v-btn flat color="orange" @click.native="onUmlDelete(uml)">Delete</v-btn>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+              <v-card tile>
+                <v-card-media
+                  :src="uml.src"
+                  height="200px"
+                  contain
+                  @click.native="selectedUml = uml; loadingDialogVisible = true"
+                >
+                </v-card-media>
+                <v-card-text>{{ moment(uml.date).format('H:mm:ss') }}</v-card-text>
+                <v-card-actions>
+                  <v-btn flat color="orange" @click.native="selectedUml = uml; deletingDialogVisible = true">Delete</v-btn>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </v-flex>
+    </v-layout>
 
     <v-snackbar
       :timeout="3000"
@@ -73,9 +89,43 @@
       UML Diagram updated.
       <v-btn flat color="pink" @click.native="updatedMessageVisible = false">Close</v-btn>
     </v-snackbar>
+
+    <v-dialog v-model="loadingDialogVisible" max-width="500px">
+      <v-card>
+        <v-card-title class="warning--text">
+          <v-icon color="warning" class="header-icon">warning</v-icon> Warning.
+        </v-card-title>
+        <v-card-text>
+          Discard your changes?
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" flat @click.stop="loadingDialogVisible = false">Cancel</v-btn>
+          <v-btn color="warning" flat @click.stop="loadingDialogVisible = false; onUmlLoad(selectedUml)">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="deletingDialogVisible" max-width="500px">
+      <v-card>
+        <v-card-title class="warning--text">
+          <v-icon color="warning" class="header-icon">warning</v-icon> Warning.
+        </v-card-title>
+        <v-card-text>
+          Delete this Uml?
+          <div class="deletingUml" v-dragscroll>
+            <img :src="selectedUml.src" v-if="selectedUml">
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" flat @click.stop="deletingDialogVisible = false">Cancel</v-btn>
+          <v-btn color="warning" flat @click.stop="deletingDialogVisible = false; onUmlDelete(selectedUml)">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
+import moment from 'moment';
 import CodeFlaskEditor from "./CodeFlaskEditor";
 import AceEditor from "./AceEditor";
 
@@ -116,8 +166,11 @@ export default {
       umls: [],
       ls: window.localStorage,
       updatedMessageVisible: false,
-      observer: null,
+      loadingDialogVisible: false,
+      deletingDialogVisible: false,
+      selectedUml: null,
       submitDisabled: false,
+      moment: moment,
     };
   },
   computed: {
@@ -126,6 +179,28 @@ export default {
     },
     currentEditor() {
       return this.editors[this.editorMode];
+    },
+    dateSplitUmls() {
+      function compare(a, b) {
+        if (a.date < b.date)
+          return 1;
+        if (a.date > b.date)
+          return -1;
+        return 0;
+      }
+      const sorted = this.umls.sort(compare);
+      const days = [];
+      let currentDay = null;
+      const dateFormat = 'YYYY/MM/DD'
+      sorted.forEach((uml, index) => {
+        if (index === 0
+          || !moment(sorted[index - 1].date).isSame(sorted[index].date, 'day')) {
+            currentDay = [];
+            days.push(currentDay);
+          }
+          currentDay.push(uml)
+      })
+      return days;
     }
   },
   watch: {
@@ -142,7 +217,6 @@ export default {
     }
 
     this.umls = this.ls && this.ls.getItem("umls") && JSON.parse(this.ls.getItem("umls"))
-    console.log(this.umls);
 
     const uml = this.ls && this.ls.getItem("umls") 
       ? this.umls && this.umls[0] && this.umls[0].uml
@@ -224,7 +298,7 @@ bob <-- alice`;
           this.umls.unshift({
             uml: uml,
             src: src,
-            date: new Date().getTime()
+            date: +moment()
           });
         }
 
@@ -237,6 +311,7 @@ bob <-- alice`;
 };
 </script>
 <style lang="scss">
+
 #editorWrapper {
   position: relative;
   width: 100%;
@@ -276,7 +351,7 @@ bob <-- alice`;
   left: 0;
   max-height: 50rem;
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
 	border: 1px solid #eee;
   background-color: #fff;
   cursor: -webkit-grab;
@@ -285,7 +360,23 @@ bob <-- alice`;
   cursor: grab;
 }
 
-.flex-scroll {
-  min-height: min-content;
+#history {
+  max-height: 30rem;
+  overflow-y: auto;
+}
+
+.deletingUml {
+  max-width: 500px;
+  max-height: 50rem;
+  overflow: auto;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: grab;
+}
+
+.header-icon {
+  margin-top: -3px;
+  margin-right: 4px;
 }
 </style>
