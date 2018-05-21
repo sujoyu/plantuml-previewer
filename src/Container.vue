@@ -223,6 +223,8 @@ export default {
       : this.ls && this.ls.getItem("uml") || `bob -> alice
 bob <-- alice`;
 
+    this.umls = this.umls || [];
+
     if (uml) {
       this.$refs.canvas.setAttribute("uml", uml);
       this.$refs.canvas.removeAttribute("src", null);
