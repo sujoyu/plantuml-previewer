@@ -218,9 +218,11 @@ export default {
 
     this.umls = this.ls && this.ls.getItem("umls") && JSON.parse(this.ls.getItem("umls"))
 
-    const uml = this.ls && this.ls.getItem("umls") 
+    let uml = this.ls && this.ls.getItem("umls") 
       ? this.umls && this.umls[0] && this.umls[0].uml
-      : this.ls && this.ls.getItem("uml") || `bob -> alice
+      : this.ls && this.ls.getItem("uml")
+
+    uml = uml || `bob -> alice
 bob <-- alice`;
 
     this.umls = this.umls || [];
